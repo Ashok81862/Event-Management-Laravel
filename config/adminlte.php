@@ -252,6 +252,51 @@ return [
             'url'  => '/admin/speakers',
             'icon' => 'nav-icon fas fa-fw fa-volume-up',
         ],
+        [
+            'text' => 'Schedules',
+            'url'  => '/admin/schedules',
+            'icon' => 'nav-icon fas fa-fw fa-clock',
+        ],
+        [
+            'text' => 'Venues',
+            'url'  => '/admin/venues',
+            'icon' => 'nav-icon fas fa-fw fa-city',
+        ],
+        [
+            'text' => 'Hotels',
+            'url'  => '/admin/hotels',
+            'icon' => 'nav-icon fas fa-fw fa-hotel',
+        ],
+        [
+            'text' => 'Galleries',
+            'url'  => '/admin/galleries',
+            'icon' => 'nav-icon fas fa-fw fa-images',
+        ],
+        [
+            'text' => 'Sponsors',
+            'url'  => '/admin/sponsors',
+            'icon' => 'nav-icon fas fa-fw fa-asterisk',
+        ],
+        [
+            'text' => 'FAQs',
+            'url'  => '/admin/faqs',
+            'icon' => 'nav-icon fas fa-fw fa-info',
+        ],
+        [
+            'text' => 'Amenities',
+            'url'  => '/admin/amenities',
+            'icon' => 'nav-icon fas fa-fw fa-layer-group',
+        ],
+        [
+            'text' => 'Prices',
+            'url'  => '/admin/prices',
+            'icon' => 'nav-icon fas fa-fw fa-hand-holding-usd',
+        ],
+        [
+            'text' => 'Change Password',
+            'url'  => '/admin/password',
+            'icon' => 'nav-icon fas fa-fw fa-key',
+        ],
     ],
 
     /*
