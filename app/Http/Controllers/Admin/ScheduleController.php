@@ -16,7 +16,7 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        $schedules = Schedule::with(['speaker'])->paginate(10);
+        $schedules = Schedule::with(['speaker'])->orderBy('start_date','desc')->paginate(10);
 
         return view('admin.schedules.index', compact('schedules'));
     }
