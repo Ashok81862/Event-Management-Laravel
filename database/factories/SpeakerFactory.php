@@ -23,7 +23,7 @@ class SpeakerFactory extends Factory
     {
         $name = $this->faker->word(mt_rand(1,3), true);
         $title = $this->faker->word(mt_rand(3,6), true);
-        $body = $this->faker->paragraph(mt_rand(100,250),true);
+        $body = $this->faker->paragraph(mt_rand(30,50),true);
         $facebook = $this->faker->word(mt_rand(4,8), true);
         $twitter = $this->faker->word(mt_rand(4,8), true);
         $email = $this->faker->word(mt_rand(4,8), true);
