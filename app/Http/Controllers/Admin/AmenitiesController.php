@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Amenitie;
+use App\Models\Amenity;
+
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AmenitiesController extends Controller
 {
@@ -15,7 +16,7 @@ class AmenitiesController extends Controller
      */
     public function index()
     {
-        $amenities = Amenitie::select(['id', 'name'])->get();
+        $amenities = Amenity::select(['id', 'name'])->paginate(10);
 
         return view('admin.amenities.index', compact('amenities'));
     }
@@ -42,12 +43,12 @@ class AmenitiesController extends Controller
             'name'  =>  ['required','max:100'],
         ]);
 
-        Amenitie::create([
+        Amenity::create([
             'name'  =>  $request->name,
         ]);
 
         return redirect()->route('admin.amenities.index')
-            ->with('success','Amenitie Created Successfully !!');
+            ->with('success','Amenity Created Successfully !!');
     }
 
     /**
@@ -67,9 +68,9 @@ class AmenitiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Amenitie $amenitie)
+    public function edit(Amenity $amenity)
     {
-        return view('admin.amenities.edit');
+        return view('admin.amenities.edit', compact('amenity'));
     }
 
     /**
@@ -79,18 +80,18 @@ class AmenitiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Amenitie $amenitie)
+    public function update(Request $request, Amenity $amenity)
     {
         $request->validate([
             'name'  =>  ['required','max:100'],
         ]);
 
-        $amenitie->delete([
+        $amenity->update([
             'name'  =>  $request->name,
         ]);
 
         return redirect()->route('admin.amenities.index')
-            ->with('success','Amenitie Updated Successfully !!');
+            ->with('success','Amenity Updated Successfully !!');
     }
 
     /**
@@ -99,11 +100,11 @@ class AmenitiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Amenitie $amenitie)
+    public function destroy(Amenity $amenity)
     {
-        $amenitie->delete();
+        $amenity->delete();
 
         return redirect()->route('admin.amenities.index')
-            ->with('success', 'Amenitie Deleted Successfully !!');
+            ->with('success', 'Amenity Deleted Successfully !!');
     }
 }
