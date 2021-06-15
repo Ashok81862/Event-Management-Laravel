@@ -6,6 +6,7 @@ use App\Models\Speaker;
 use Illuminate\Http\Request;
 use App\Services\MediaService;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class SpeakerController extends Controller
 {
@@ -114,9 +115,10 @@ class SpeakerController extends Controller
         ]);
 
         if ($request->has('image') && !empty($request->file('image'))) {
+            if ($speaker->media_id)
+                Storage::delete("public/" . $speaker->media->path);
             $media_id = MediaService::upload($request->file('image'), "speakers");
         }
-
         $speaker->update([
             'name'      =>  $request->name,
             'title'     =>  $request->title,
