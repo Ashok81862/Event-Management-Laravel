@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Speaker;
 use Illuminate\Http\Request;
+use App\Services\MediaService;
+use App\Http\Controllers\Controller;
 
 class SpeakerController extends Controller
 {
@@ -14,7 +16,9 @@ class SpeakerController extends Controller
      */
     public function index()
     {
-        //
+        $speakers = Speaker::with(['media'])->paginate(10);
+
+        return view('admin.speakers.index', compact('speakers'));
     }
 
     /**
@@ -24,7 +28,7 @@ class SpeakerController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -35,7 +39,36 @@ class SpeakerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'      =>  ['required', 'max:100'],
+            'title'     =>  ['required', 'max:100'],
+            'body'      =>  ['required'],
+            'image'     => ['nullable', 'image', 'mimes:png,jpeg,gif'],
+            'facebook'  =>  ['nullable'],
+            'instagram' =>  ['nullable'],
+            'email'     =>  ['nullable'],
+            'twitter'   =>  ['nullable'],
+        ]);
+
+        if ($request->has('image') && !empty($request->file('image'))) {
+            $media_id = MediaService::upload($request->file('image'), "speakers");
+        }
+
+        Speaker::create([
+            'name'      =>  $request->name,
+            'title'     =>  $request->title,
+            'body'      => $request->body,
+            'media_id'  => $media_id ?? null,
+            'facebook'  =>  $request->facebook,
+            'instagram' => $request->instagram,
+            'twitter'   =>  $request->twitter,
+            'email'     =>  $request->email,
+
+        ]);
+
+        return redirect()->route('admin.speakers.index')
+            ->with('success', 'New Speaker Created Successfully!');
+
     }
 
     /**
@@ -44,9 +77,9 @@ class SpeakerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Speaker $speaker)
     {
-        //
+        return view('admin.speakers.show', compact('speaker'));
     }
 
     /**
@@ -55,9 +88,9 @@ class SpeakerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Speaker $speaker)
     {
-        //
+        return view('admin.speakers.edit', compact('speaker'));
     }
 
     /**
@@ -67,9 +100,37 @@ class SpeakerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Speaker $speaker)
     {
-        //
+        $request->validate([
+            'name'      =>  ['required', 'max:100'],
+            'title'     =>  ['required', 'max:100'],
+            'body'      =>  ['required'],
+            'image'     => ['nullable', 'image', 'mimes:png,jpeg,gif'],
+            'facebook'  =>  ['nullable'],
+            'instagram' =>  ['nullable'],
+            'email'     =>  ['nullable'],
+            'twitter'   =>  ['nullable'],
+        ]);
+
+        if ($request->has('image') && !empty($request->file('image'))) {
+            $media_id = MediaService::upload($request->file('image'), "speakers");
+        }
+
+        $speaker->update([
+            'name'      =>  $request->name,
+            'title'     =>  $request->title,
+            'body'      => $request->body,
+            'media_id'  => $media_id ?? $speaker->media_id,
+            'facebook'  =>  $request->facebook,
+            'instagram' => $request->instagram,
+            'twitter'   =>  $request->twitter,
+            'email'     =>  $request->email,
+
+        ]);
+
+        return redirect()->route('admin.speakers.index')
+            ->with('success', 'Speaker Updated Successfully!');
     }
 
     /**
@@ -78,8 +139,11 @@ class SpeakerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Speaker $speaker)
     {
-        //
+        $speaker->delete();
+
+        return redirect()->route('admin.speakers.index')
+            ->with('success', 'Speaker Deleted Successfully!');
     }
 }
