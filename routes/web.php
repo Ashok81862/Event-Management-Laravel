@@ -17,6 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function() {
-    return view('home');
-})->name('home')->middleware('auth');
+Route::get('/home',[\App\Http\Controllers\SiteController::class, 'home'])->middleware('auth');
+
+
+Route::middleware([ 'admin',])->prefix('admin')->name('admin.')->group(function(){
+    Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index']);
+
+    Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+
+
+});
