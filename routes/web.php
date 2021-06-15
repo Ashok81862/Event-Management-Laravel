@@ -29,5 +29,6 @@ Route::middleware([ 'admin',])->prefix('admin')->name('admin.')->group(function(
 
     Route::resource('schedules', \App\Http\Controllers\Admin\ScheduleController::class);
 
+    Route::resource('galleries', \App\Http\Controllers\Admin\GalleryController::class);
 
 });
