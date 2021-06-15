@@ -18,7 +18,7 @@ class CreateSpeakersTable extends Migration
             $table->string('name');
             $table->string('title');
             $table->longText('body');
-            $table->foreignId('media_id');
+            $table->foreignId('media_id')->nullable();
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
