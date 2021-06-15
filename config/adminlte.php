@@ -247,6 +247,11 @@ return [
             'url'  => '/admin/users',
             'icon' => 'nav-icon fas fa-fw fa-users',
         ],
+        [
+            'text' => 'Speakers',
+            'url'  => '/admin/speakers',
+            'icon' => 'nav-icon fas fa-fw fa-volume-up',
+        ],
     ],
 
     /*

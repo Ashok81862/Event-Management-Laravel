@@ -25,5 +25,7 @@ Route::middleware([ 'admin',])->prefix('admin')->name('admin.')->group(function(
 
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
 
+    Route::resource('speakers', \App\Http\Controllers\Admin\SpeakerController::class);
+
 
 });
