@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Amenitie;
 use Illuminate\Http\Request;
 
 class AmenitiesController extends Controller
@@ -14,7 +15,9 @@ class AmenitiesController extends Controller
      */
     public function index()
     {
-        //
+        $amenities = Amenitie::select(['id', 'name'])->get();
+
+        return view('admin.amenities.index', compact('amenities'));
     }
 
     /**
@@ -24,7 +27,7 @@ class AmenitiesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.amenities.create');
     }
 
     /**
@@ -35,7 +38,16 @@ class AmenitiesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  =>  ['required','max:100'],
+        ]);
+
+        Amenitie::create([
+            'name'  =>  $request->name,
+        ]);
+
+        return redirect()->route('admin.amenities.index')
+            ->with('success','Amenitie Created Successfully !!');
     }
 
     /**
@@ -55,9 +67,9 @@ class AmenitiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Amenitie $amenitie)
     {
-        //
+        return view('admin.amenities.edit');
     }
 
     /**
@@ -67,9 +79,18 @@ class AmenitiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Amenitie $amenitie)
     {
-        //
+        $request->validate([
+            'name'  =>  ['required','max:100'],
+        ]);
+
+        $amenitie->delete([
+            'name'  =>  $request->name,
+        ]);
+
+        return redirect()->route('admin.amenities.index')
+            ->with('success','Amenitie Updated Successfully !!');
     }
 
     /**
@@ -78,8 +99,11 @@ class AmenitiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Amenitie $amenitie)
     {
-        //
+        $amenitie->delete();
+
+        return redirect()->route('admin.amenities.index')
+            ->with('success', 'Amenitie Deleted Successfully !!');
     }
 }
