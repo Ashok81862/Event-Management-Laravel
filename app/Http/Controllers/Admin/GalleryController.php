@@ -91,7 +91,7 @@ class GalleryController extends Controller
     {
         $request->validate([
             'name'  =>  ['required','max:100'],
-            'image' =>  ['required','image','mimes:png,jpeg,gif']
+            'image' =>  ['nullable','image','mimes:png,jpeg,gif']
         ]);
 
         if ($request->has('image') && !empty($request->file('image'))) {
