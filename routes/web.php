@@ -33,6 +33,6 @@ Route::middleware([ 'admin',])->prefix('admin')->name('admin.')->group(function(
 
     Route::resource('amenities', \App\Http\Controllers\Admin\AmenitiesController::class);
 
-    Route::resource('sponsors', \App\Http\Controllers\Admin\SponsorsController::class);
+    Route::resource('sponsors', \App\Http\Controllers\Admin\SponsorController::class);
 
 });

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Sponsors;
+use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use App\Services\MediaService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
-class SponsorsController extends Controller
+class SponsorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class SponsorsController extends Controller
      */
     public function index()
     {
-        $sponsors = Sponsors::with(['media'])->paginate(10);
+        $sponsors = Sponsor::with(['media'])->paginate(10);
 
         return view('admin.sponsors.index', compact('sponsors'));
     }
@@ -50,13 +50,13 @@ class SponsorsController extends Controller
             $media_id = MediaService::upload($request->file('image'), "sponsors");
         }
 
-        Sponsors::create([
+        Sponsor::create([
             'name'      =>  $request->name,
-            'media_id'  =>  $request->media_id ?? null,
+            'media_id'  =>  $media_id ?? null,
             'email'     => $request->email
         ]);
 
-        return redirect()->route('admin.users.index')
+        return redirect()->route('admin.sponsors.index')
             ->with('success', 'New Sponsors Created Successfully!');
     }
 
@@ -66,7 +66,7 @@ class SponsorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Sponsors $sponsor)
+    public function show(Sponsor $sponsor)
     {
         return view('admin.sponsors.show', compact('sponsor'));
     }
@@ -77,7 +77,7 @@ class SponsorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sponsors $sponsor)
+    public function edit(Sponsor $sponsor)
     {
         return view('admin.sponsors.edit', compact('sponsor'));
     }
@@ -89,7 +89,7 @@ class SponsorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sponsors $sponsor )
+    public function update(Request $request, Sponsor $sponsor )
     {
         $request->validate([
             'name'  =>  ['required','max:100'],
@@ -105,11 +105,11 @@ class SponsorsController extends Controller
 
         $sponsor->update([
             'name'      =>  $request->name,
-            'media_id'  =>  $request->media_id ?? $sponsor->media_id,
+            'media_id'  =>  $media_id ?? $sponsor->media_id,
             'email'     => $request->email
         ]);
 
-        return redirect()->route('admin.users.index')
+        return redirect()->route('admin.sponsors.index')
             ->with('success', 'New Sponsors Created Successfully!');
     }
 
@@ -119,7 +119,7 @@ class SponsorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sponsors $sponsor)
+    public function destroy(Sponsor $sponsor)
     {
         $sponsor->delete();
 
