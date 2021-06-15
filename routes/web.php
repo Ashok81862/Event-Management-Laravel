@@ -27,5 +27,7 @@ Route::middleware([ 'admin',])->prefix('admin')->name('admin.')->group(function(
 
     Route::resource('speakers', \App\Http\Controllers\Admin\SpeakerController::class);
 
+    Route::resource('schedules', \App\Http\Controllers\Admin\ScheduleController::class);
+
 
 });
