@@ -31,4 +31,6 @@ Route::middleware([ 'admin',])->prefix('admin')->name('admin.')->group(function(
 
     Route::resource('galleries', \App\Http\Controllers\Admin\GalleryController::class);
 
+    Route::resource('amenities', \App\Http\Controllers\Admin\AmenitiesController::class);
+
 });
