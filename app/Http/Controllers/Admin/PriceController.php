@@ -16,7 +16,7 @@ class PriceController extends Controller
      */
     public function index()
     {
-        $prices = Price::select(['id','name'])->get();
+        $prices = Price::select(['id','name','price'])->paginate(5);
 
         return view('admin.prices.index', compact('prices'));
     }
