@@ -3,41 +3,31 @@
 
       <div class="row gy-4">
 
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
           <div class="count-box">
             <i class="bi bi-emoji-smile"></i>
             <div>
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="{{ $venue_count }}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Events</p>
             </div>
           </div>
         </div>
 
-        <div class="col-lg-3 col-md-6">
-          <div class="count-box">
-            <i class="bi bi-journal-richtext" style="color: #ee6c20;"></i>
-            <div>
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Galleries</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
           <div class="count-box">
             <i class="bi bi-headset" style="color: #15be56;"></i>
             <div>
-              <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="{{ $sponsor_count }}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Brands</p>
             </div>
           </div>
         </div>
 
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
           <div class="count-box">
             <i class="bi bi-people" style="color: #bb0852;"></i>
             <div>
-              <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="{{ $speaker_count}}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Speakers</p>
             </div>
           </div>
