@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Price;
+use BaconQrCode\Renderer\Color\Cmyk;
 use Illuminate\Http\Request;
 
 class PriceController extends Controller
@@ -14,7 +16,9 @@ class PriceController extends Controller
      */
     public function index()
     {
-        //
+        $prices = Price::select(['id','name'])->get();
+
+        return view('admin.prices.index', compact('prices'));
     }
 
     /**
@@ -24,7 +28,7 @@ class PriceController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.prices.create');
     }
 
     /**
@@ -35,7 +39,18 @@ class PriceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        'name'  =>  ['required','max:20'],
+        'price' =>  ['required','integer'],
+        ]);
+
+        Price::create([
+            'name'  =>  $request->name,
+            'price' =>  $request->price,
+        ]);
+
+        return redirect()->route('admin.prices.index')
+            ->with('success', 'New Price Added Successfully !!');
     }
 
     /**
@@ -44,9 +59,9 @@ class PriceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Price $price)
     {
-        //
+        return view('admin.prices.show', compact('price'));
     }
 
     /**
@@ -55,9 +70,9 @@ class PriceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Price $price)
     {
-        //
+        return view('admin.prices.edit', compact('price'));
     }
 
     /**
@@ -67,9 +82,20 @@ class PriceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Price $price)
     {
-        //
+        $request->validate([
+            'name'  =>  ['required','max:20'],
+            'price' =>  ['required','integer'],
+            ]);
+
+            $price->update([
+                'name'  =>  $request->name ?? $price->name,
+                'price' =>  $request->price ?? $price->price,
+            ]);
+
+            return redirect()->route('admin.prices.index')
+                ->with('success', 'Price Updated Successfully !!');
     }
 
     /**
@@ -78,8 +104,11 @@ class PriceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Price $price)
     {
-        //
+        $price->delete();
+
+        return redirect()->route('admin.prices.index')
+            ->with('success','Price Deleted Successfully !!');
     }
 }
