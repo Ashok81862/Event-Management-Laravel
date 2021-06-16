@@ -35,4 +35,6 @@ Route::middleware([ 'admin',])->prefix('admin')->name('admin.')->group(function(
 
     Route::resource('sponsors', \App\Http\Controllers\Admin\SponsorController::class);
 
+    Route::resource('prices', \App\Http\Controllers\Admin\PriceController::class);
+
 });
