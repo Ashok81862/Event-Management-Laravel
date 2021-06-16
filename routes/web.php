@@ -44,4 +44,6 @@ Route::middleware([ 'admin',])->prefix('admin')->name('admin.')->group(function(
 
     Route::resource('faqs', \App\Http\Controllers\Admin\FaqController::class);
 
+    Route::resource('venues', \App\Http\Controllers\Admin\VenueController::class);
+
 });
