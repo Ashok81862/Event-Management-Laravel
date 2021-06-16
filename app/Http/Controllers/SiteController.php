@@ -25,7 +25,7 @@ class SiteController extends Controller
         $schedules = Schedule::orderBy('created_at', 'desc')->limit(6)->get();
         $schedule_count   = Schedule::count();
 
-        $speakers = Speaker::with(['media'])->orderBy('created_at', 'asc')->limit(6)->get();
+        $speakers = Speaker::with(['media'])->orderBy('created_at', 'asc')->limit(4)->get();
 
         $speaker_count = Speaker::count();
 
