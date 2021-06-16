@@ -52,6 +52,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Description</td>
+                    <td>{{ $venue->body }}</td>
+                </tr>
+                <tr>
                     <td>Created At</td>
                     <td>{{ $venue->created_at }}</td>
                 </tr>

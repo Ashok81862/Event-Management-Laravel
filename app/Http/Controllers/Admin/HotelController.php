@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
+use App\Services\MediaService;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class HotelController extends Controller
 {
@@ -14,7 +17,9 @@ class HotelController extends Controller
      */
     public function index()
     {
-        //
+        $hotels = Hotel::with(['media'])->paginate(10);
+
+        return view('admin.hotels.index', compact('hotels'));
     }
 
     /**
@@ -24,7 +29,7 @@ class HotelController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.hotels.create');
     }
 
     /**
@@ -35,7 +40,28 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'      =>  ['required','max:50'],
+            'address'   =>  ['required'],
+            'rating' =>  ['nullable'],
+            'body'      =>      ['nullable'],
+            'image' => ['nullable', 'image', 'mimes:png,jpeg,gif'],
+            ]);
+
+            if ($request->has('image') && !empty($request->file('image'))) {
+                $media_id = MediaService::upload($request->file('image'), "hotels");
+            }
+
+            Hotel::create([
+                'name'  =>  $request->name,
+                'address'   =>  $request->address,
+                'rating' =>  $request->rating,
+                'body'  =>  $request->body,
+                'media_id'  =>  $media_id ?? null,
+            ]);
+
+            return redirect()->route('admin.hotels.index')
+                ->with('success', 'New Hotel Created Successfully !!');
     }
 
     /**
@@ -44,9 +70,9 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Hotel $hotel)
     {
-        //
+        return view('admin.hotels.show', compact('hotel'));
     }
 
     /**
@@ -55,9 +81,9 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Hotel $hotel)
     {
-        //
+        return view('admin.hotels.edit', compact('hotel'));
     }
 
     /**
@@ -67,9 +93,32 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Hotel $hotel)
     {
-        //
+        $request->validate([
+            'name'      =>  ['required','max:50'],
+            'address'   =>  ['required'],
+            'rating' =>  ['nullable'],
+            'body'      =>      ['nullable'],
+            'image' => ['nullable', 'image', 'mimes:png,jpeg,gif'],
+            ]);
+
+            if ($request->has('image') && !empty($request->file('image'))) {
+                if ($hotel->media_id)
+                    Storage::delete("public/" . $hotel->media->path);
+                $media_id = MediaService::upload($request->file('image'), "hotels");
+            }
+
+            $hotel->update([
+                'name'  =>  $request->name,
+                'address'   =>  $request->address,
+                'rating' =>  $request->rating,
+                'body'  =>  $request->body,
+                'media_id'  =>  $media_id ?? $hotel->media_id,
+            ]);
+
+            return redirect()->route('admin.hotels.index')
+                ->with('success', 'Hotel Updated Successfully !!');
     }
 
     /**
@@ -78,8 +127,11 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Hotel $hotel)
     {
-        //
+        $hotel->delete();
+
+        return redirect()->route('admin.hotels.index')
+                ->with('success', 'Hotel Deleted Successfully !!');
     }
 }
