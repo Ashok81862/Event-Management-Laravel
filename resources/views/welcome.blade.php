@@ -110,7 +110,7 @@
                 <div class="col-sm-3">
 
                     <i class="ion-ios-calendar"></i>
-                    <h3>2015<br>June 25</h3>
+                    <h3>{{$schedule_count }}<br>Events</h3>
 
                 </div>
                 <div class="col-sm-3">
@@ -128,7 +128,7 @@
                 <div class="col-sm-3">
 
                     <i class="ion-speakerphone"></i>
-                    <h3>06<br>Speakers</h3>
+                    <h3>{{ $speaker_count}}<br>Speakers</h3>
 
                 </div>
             </div><!-- row -->
@@ -146,129 +146,31 @@
             </div>
 
             <div class="row">
+                @foreach ($speakers as $speaker)
                 <div class="col-md-4">
+
                     <div class="speaker">
 
                         <figure>
-                            <img alt="" class="img-responsive center-block" src="{{ asset('images/speakers/speaker-1.jpg') }}">
+                            @if($speaker->media_id)
+                            <img alt="" class="img-responsive center-block" src="/storage/{{ $speaker->media->path }}">
+                            @endif
                         </figure>
 
-                        <h4>Jhon Smith</h4>
+                        <h4>{{ $speaker->name }}</h4>
 
-                        <p>CEO of Peren</p>
-
-                        <ul class="social-block">
-                            <li><a href=""><i class="ion-social-twitter"></i></a></li>
-                            <li><a href=""><i class="ion-social-facebook"></i></a></li>
-                            <li><a href=""><i class="ion-social-linkedin-outline"></i></a></li>
-                            <li><a href=""><i class="ion-social-googleplus"></i></a></li>
-                        </ul>
-
-                    </div><!-- /.speaker -->
-                </div><!-- /.col-md-4 -->
-
-                <div class="col-md-4">
-                    <div class="speaker">
-
-                        <figure>
-                            <img alt="" class="img-responsive center-block" src="{{ asset('images/speakers/speaker-2.jpg') }}">
-                        </figure>
-
-                        <h4>Jhon Smith</h4>
-
-                        <p>CEO of Peren</p>
+                        <p>{{ $speaker->title }}</p>
 
                         <ul class="social-block">
-                            <li><a href=""><i class="ion-social-twitter"></i></a></li>
-                            <li><a href=""><i class="ion-social-facebook"></i></a></li>
-                            <li><a href=""><i class="ion-social-linkedin-outline"></i></a></li>
-                            <li><a href=""><i class="ion-social-googleplus"></i></a></li>
+                            <li><a href="{{ $speaker->twitter }}"><i class="ion-social-twitter"></i></a></li>
+                            <li><a href="{{ $speaker->facebook }}"><i class="ion-social-facebook"></i></a></li>
+                            <li><a href="{{$speaker->instagram }}"><i class="ion-social-instagram"></i></a></li>
                         </ul>
 
-                    </div><!-- /.speaker -->
-                </div><!-- /.col-md-4 -->
-
-                <div class="col-md-4">
-                    <div class="speaker">
-
-                        <figure>
-                            <img alt="" class="img-responsive center-block" src="{{ asset('images/speakers/speaker-3.jpg') }}">
-                        </figure>
-
-                        <h4>Jhon Smith</h4>
-
-                        <p>CEO of Peren</p>
-
-                        <ul class="social-block">
-                            <li><a href=""><i class="ion-social-twitter"></i></a></li>
-                            <li><a href=""><i class="ion-social-facebook"></i></a></li>
-                            <li><a href=""><i class="ion-social-linkedin-outline"></i></a></li>
-                            <li><a href=""><i class="ion-social-googleplus"></i></a></li>
-                        </ul>
-
-                    </div><!-- /.speaker -->
-                </div><!-- /.col-md-4 -->
+                    </div>
+                </div>
+                @endforeach
             </div><!-- /.row -->
-
-            <div class="row">
-                <div class="col-md-4">
-
-                    <div class="speaker">
-
-                        <figure>
-                            <img alt="" class="img-responsive center-block" src="{{ asset('images/speakers/speaker-4.jpg') }}">
-                        </figure>
-
-                        <h4>Jhon Smith</h4>
-
-                        <p>CEO of Peren</p>
-
-                        <ul class="social-block">
-                            <li><a href=""><i class="ion-social-twitter"></i></a></li>
-                            <li><a href=""><i class="ion-social-facebook"></i></a></li>
-                            <li><a href=""><i class="ion-social-linkedin-outline"></i></a></li>
-                            <li><a href=""><i class="ion-social-googleplus"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-4">
-
-                    <div class="speaker">
-
-                        <figure>
-                            <img alt="" class="img-responsive center-block" src="{{ asset('images/speakers/speaker-5.jpg') }}">
-                        </figure>
-
-                        <h4>Jhon Smith</h4>
-
-                        <p>CEO of Peren</p>
-
-                        <ul class="social-block">
-                            <li><a href=""><i class="ion-social-twitter"></i></a></li>
-                            <li><a href=""><i class="ion-social-facebook"></i></a></li>
-                            <li><a href=""><i class="ion-social-linkedin-outline"></i></a></li>
-                            <li><a href=""><i class="ion-social-googleplus"></i></a></li>
-                        </ul>
-
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="speaker">
-                        <figure>
-                            <img alt="" class="img-responsive center-block" src="{{ asset('images/speakers/speaker-6.jpg') }}">
-                        </figure>
-                        <h4>Jhon Smith</h4>
-                        <p>CEO of Peren</p>
-                        <ul class="social-block">
-                            <li><a href=""><i class="ion-social-twitter"></i></a></li>
-                            <li><a href=""><i class="ion-social-facebook"></i></a></li>
-                            <li><a href=""><i class="ion-social-linkedin-outline"></i></a></li>
-                            <li><a href=""><i class="ion-social-googleplus"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -361,33 +263,17 @@
                 </div>
             </div>
             <div class="row">
+                @foreach ($schedules as $schedule)
                 <div class="col-md-4 col-sm-6">
                     <div class="schedule-box">
                         <div class="time">
-                            <time datetime="09:00">09:00 am</time> - <time datetime="22:00">10:00 am</time>
+                            <time datetime="{{ $schedule->start_date}}"></time>
                         </div>
-                        <h3>Welcome and intro</h3>
-                        <p>Mustafizur Khan, SD Asia</p>
+                        <h3>{{ $schedule->title }}</h3>
+                        <p>{{ $schedule->speaker->name }}</p>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="schedule-box">
-                        <div class="time">
-                            <time datetime="10:00">10:00 am</time> - <time datetime="22:00">10:00 am</time>
-                        </div>
-                        <h3>Tips and share</h3>
-                        <p>Mustafizur Khan, SD Asia</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="schedule-box">
-                        <div class="time">
-                            <time datetime="10:00">10:00 am</time> - <time datetime="22:00">10:00 am</time>
-                        </div>
-                        <h3>View from the top</h3>
-                        <p>Mustafizur Khan, SD Asia</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
     </section>
 
@@ -399,33 +285,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-1"></a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-2"></a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-3"></a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-4"></a>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-5"></a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-6"></a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-7"></a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-8"></a>
-                </div>
+                @foreach($sponsors as $sponsor)
+                    @if($sponsor->media_id)
+                    <div class="col-sm-3">
+                        <a class="partner-box partner-box-6">
+                            <img alt="" class="img-responsive center-block" src="/storage/{{ $sponsor->media->path }}"/>
+                        </a>
+                    </div>
+                    @endif
+                @endforeach
             </div>
     </section>
 
@@ -440,68 +308,21 @@
                 <div class="col-md-12">
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingOne">
-                                <h4 class="panel-title">
-                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> What is the price of the ticket ?</a>
-                                </h4>
-                            </div>
+                        @foreach ($faqs as $faq)
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">{{ $faq->question }}</a>
+                                    </h4>
+                                </div>
 
-                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                <div class="panel-body">
-                                    <h3>Hello</h3>
-                                    <p>Lorem Ipsum</p>
+                                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <p>{{ $faq->answer }}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingTwo">
-                                <h4 class="panel-title">
-                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> What is included in my ticket ?</a>
-                                </h4>
-                            </div>
-
-                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                <div class="panel-body">Hello</div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingThree">
-                                <h4 class="panel-title">
-                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Office address ?</a>
-                                </h4>
-                            </div>
-
-                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                <div class="panel-body">Hello</div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingFour">
-                                <h4 class="panel-title">
-                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour"> How should I dress ?</a>
-                                </h4>
-                            </div>
-
-                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                                <div class="panel-body">Hello</div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingFive">
-                                <h4 class="panel-title">
-                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive"> I have specific questions that are not addressed here. Who can help me ?</a>
-                                </h4>
-                            </div>
-
-                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-                                <div class="panel-body">Hello</div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -517,23 +338,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul class="grid">
-
-                        <li class="grid-item grid-item-sm-6">
-                            <img alt="" class="img-responsive center-block" src="{{ asset('images/photos/photos-1.jpg') }}">
-                        </li>
-
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="{{ asset('images/photos/photos-2.jpg') }}">
-                        </li>
-
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="a{{ asset('images/photos/photos-3.jpg') }}">
-                        </li>
-
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="{{ asset('images/photos/photos-4.jpg') }}">
-                        </li>
-
+                        @foreach ($galleries as $gallery )
+                            @if($gallery->media_id)
+                            <li class="grid-item grid-item-sm-3">
+                                <img alt="" class="img-responsive center-block" src="/storage/{{ $gallery->media->path }}">
+                            </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -544,7 +355,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
-                    <h3 class="section-title">Event Location</h3>
+                    <h3 class="section-title">Head Office</h3>
                     <address>
                         <p>Eardenia<br> The Grand Hall<br> House # 08, Road #52, Street<br> Phone: +1159t3764<br> Email: example@mail.com</p>
                     </address>
@@ -560,7 +371,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                   Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
                     <ul class="social-block">
                         <li><a href=""><i class="ion-social-twitter"></i></a></li>
                         <li><a href=""><i class="ion-social-facebook"></i></a></li>
@@ -573,9 +383,9 @@
     </footer>
 
     <!-- script -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/smooth-scroll/dist/js/smooth-scroll.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bower_components/smooth-scroll/dist/js/smooth-scroll.min.js') }}"></script>
+    <script src="{{ asset('js/main.js')}}"></script>
 </body>
 </html>
