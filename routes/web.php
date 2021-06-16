@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', [\App\Http\Controllers\SiteController::class , 'index'])->name('index');
+
 Route::get('/home',[\App\Http\Controllers\SiteController::class, 'home'])->middleware('auth');
 
 
