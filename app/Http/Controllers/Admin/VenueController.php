@@ -54,11 +54,12 @@ class VenueController extends Controller
         }
 
         Venue::create([
-            'name'  =>  $request->name,
+            'name'      =>  $request->name,
             'address'   =>  $request->address,
             'longitude' =>  $request->longitude,
             'latitude'  =>  $request->latitude,
             'media_id'  =>  $media_id ?? null,
+            'body'      => $request->body,
         ]);
 
         return redirect()->route('admin.venues.index')
@@ -112,11 +113,12 @@ class VenueController extends Controller
             }
 
             $venue->update([
-                'name'  =>  $request->name,
+                'name'      =>  $request->name,
                 'address'   =>  $request->address,
                 'longitude' =>  $request->longitude,
                 'latitude'  =>  $request->latitude,
                 'media_id'  =>  $media_id ?? $venue->media_id,
+                'body'      => $request->body,
             ]);
 
             return redirect()->route('admin.venues.index')

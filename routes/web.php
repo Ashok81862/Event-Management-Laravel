@@ -46,4 +46,6 @@ Route::middleware([ 'admin',])->prefix('admin')->name('admin.')->group(function(
 
     Route::resource('venues', \App\Http\Controllers\Admin\VenueController::class);
 
+    Route::resource('hotels', \App\Http\Controllers\Admin\HotelController::class);
+
 });
