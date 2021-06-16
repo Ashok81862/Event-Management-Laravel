@@ -4,6 +4,7 @@
 
 @section('content')
 
+
     <x-alert />
     <x-delete />
 
