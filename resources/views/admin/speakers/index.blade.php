@@ -29,37 +29,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($speakers as $speakerr)
+                    @foreach($speakers as $speaker)
                     <tr>
-                        <td>{{ $speakerr->id }}</td>
+                        <td>{{ $speaker->id }}</td>
                         <td class='text-center'>
-                            @if($speakerr->media_id)
-                                <img src="/storage/{{ $speakerr->media->path }}" height="30px">
+                            @if($speaker->media_id)
+                                <img src="/storage/{{ $speaker->media->path }}" height="30px">
                             @endif
                         </td>
-                        <td>{{ $speakerr->name }}</td>
-                        <td>{{ $speakerr->title }}</td>
+                        <td>{{ $speaker->name }}</td>
+                        <td>{{ $speaker->title }}</td>
                         <td>
                             <!-- Show -->
-                            <a href="{{ route('admin.speakers.show', $speakerr->id) }}" class="btn btn-secondary btn-sm">
+                            <a href="{{ route('admin.speakers.show', $speaker->id) }}" class="btn btn-secondary btn-sm">
                                 <i class="fas fa-fw fa-eye mr-1"></i>
                                 <span>Details</span>
                             </a>
 
                             <!-- Edit -->
-                            <a href="{{ route('admin.speakers.edit', $speakerr->id) }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('admin.speakers.edit', $speaker->id) }}" class="btn btn-primary btn-sm">
                                 <i class="fas fa-fw fa-edit mr-1"></i>
                                 <span>Edit</span>
                             </a>
 
                             <!-- Delete -->
-                            <a href="#" onclick="confirmDelete({{ $speakerr->id }})" class="btn btn-danger btn-sm">
+                            <a href="#" onclick="confirmDelete({{ $speaker->id }})" class="btn btn-danger btn-sm">
                                 <i class="fas fa-fw fa-edit mr-1"></i>
                                 <span>Delete</span>
                             </a>
 
                             <!-- Delete Form -->
-                            <form id="delete-form-{{ $speakerr->id }}" action="{{ route('admin.speakers.destroy', $speakerr->id) }}" method="post">
+                            <form id="delete-form-{{ $speaker->id }}" action="{{ route('admin.speakers.destroy', $speaker->id) }}" method="post">
                                 @csrf @method('DELETE')
                             </form>
                         </td>
