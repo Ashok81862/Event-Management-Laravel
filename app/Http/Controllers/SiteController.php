@@ -22,7 +22,7 @@ class SiteController extends Controller
 
     public function index(Request $request)
     {
-        $schedules = Schedule::orderBy('created_at', 'desc')->limit(6)->get();
+        $schedules = Schedule::with(['speaker'])->orderBy('created_at', 'desc')->limit(6)->get();
         $schedule_count   = Schedule::count();
 
         $speakers = Speaker::with(['media'])->orderBy('created_at', 'asc')->limit(4)->get();

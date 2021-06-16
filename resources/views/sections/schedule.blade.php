@@ -3,34 +3,20 @@
     <div class="container" data-aos="fade-up">
 
       <header class="section-header">
-        <p>Our Speakers</p>
+        <p>Our Schedule</p>
       </header>
 
       <div class="row">
 
+        @foreach ($schedules as $schedule)
         <div class="col-lg-4">
-          <div class="box" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/values-1.png" class="img-fluid" alt="">
-            <h3>Ad cupiditate sed est odio</h3>
-            <p>Eum ad dolor et. Autem aut fugiat debitis voluptatem consequuntur sit. Et veritatis id.</p>
+            <div class="box" data-aos="fade-up" data-aos-delay="200">
+              <h3>{{ $schedule->sub_title }}</h3>
+              <p>{{ $schedule->start_date }}</p>
+              <p>Speaker "{{ $schedule->speaker->name }}"</p>
+            </div>
           </div>
-        </div>
-
-        <div class="col-lg-4 mt-4 mt-lg-0">
-          <div class="box" data-aos="fade-up" data-aos-delay="400">
-            <img src="assets/img/values-2.png" class="img-fluid" alt="">
-            <h3>Voluptatem voluptatum alias</h3>
-            <p>Repudiandae amet nihil natus in distinctio suscipit id. Doloremque ducimus ea sit non.</p>
-          </div>
-        </div>
-
-        <div class="col-lg-4 mt-4 mt-lg-0">
-          <div class="box" data-aos="fade-up" data-aos-delay="600">
-            <img src="assets/img/values-3.png" class="img-fluid" alt="">
-            <h3>Fugit cupiditate alias nobis.</h3>
-            <p>Quam rem vitae est autem molestias explicabo debitis sint. Vero aliquid quidem commodi.</p>
-          </div>
-        </div>
+        @endforeach
 
       </div>
 
