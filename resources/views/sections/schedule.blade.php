@@ -1,4 +1,4 @@
-<section id="values" class="values">
+<section id="schedules" class="values">
 
     <div class="container" data-aos="fade-up">
 
