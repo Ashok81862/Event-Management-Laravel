@@ -43,7 +43,9 @@ class SiteController extends Controller
 
         $hotels = Hotel::with(['media'])->get();
 
+        $venue = Venue::with(['media'])->first();
 
-        return view('welcome', compact('faqs', 'speakers','speaker_count','schedules','schedule_count','galleries', 'sponsors', 'sponsor_count', 'venues','hotels'));
+
+        return view('welcome', compact('faqs', 'speakers','speaker_count','schedules','schedule_count','galleries', 'sponsors', 'sponsor_count', 'venues','hotels', 'venue'));
     }
 }
