@@ -57,6 +57,16 @@ In order to ensure that the Laravel community is welcoming to all, please review
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
+## How to use
+
+Clone the repository with git clone
+Copy .env.example file to .env and edit database credentials there
+Run composer install
+Run php artisan key:generate
+Run php artisan migrate --seed (it has some seeded data for your testing)
+That's it: launch the main URL.
+You can login to adminpanel by going go /login URL and login with credentials admin@admin.com - password
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
