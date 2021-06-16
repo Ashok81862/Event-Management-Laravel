@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Venue;
 use Illuminate\Http\Request;
+use App\Services\MediaService;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class VenueController extends Controller
 {
@@ -14,7 +17,9 @@ class VenueController extends Controller
      */
     public function index()
     {
-        //
+        $venues = Venue::with(['media'])->paginate(10);
+
+        return view('admin.venues.index', compact('venues'));
     }
 
     /**
@@ -24,7 +29,7 @@ class VenueController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.venues.create');
     }
 
     /**
@@ -35,7 +40,29 @@ class VenueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        'name'      =>  ['required','max:50'],
+        'address'   =>  ['required'],
+        'longitude' =>  ['nullable','integer'],
+        'latitude'  =>  ['nullable','integer'],
+        'body'      =>      ['nullable'],
+        'image' => ['nullable', 'image', 'mimes:png,jpeg,gif'],
+        ]);
+
+        if ($request->has('image') && !empty($request->file('image'))) {
+            $media_id = MediaService::upload($request->file('image'), "venues");
+        }
+
+        Venue::create([
+            'name'  =>  $request->name,
+            'address'   =>  $request->address,
+            'longitude' =>  $request->longitude,
+            'latitude'  =>  $request->latitude,
+            'media_id'  =>  $media_id ?? null,
+        ]);
+
+        return redirect()->route('admin.venues.index')
+            ->with('success', 'New Venue Created Successfully !!');
     }
 
     /**
@@ -44,9 +71,9 @@ class VenueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Venue $venue)
     {
-        //
+        return view('admin.venues.show', compact('venue'));
     }
 
     /**
@@ -55,9 +82,9 @@ class VenueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Venue $venue)
     {
-        //
+        return view('admin.venues.edit', compact('venue'));
     }
 
     /**
@@ -67,9 +94,33 @@ class VenueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Venue $venue)
     {
-        //
+        $request->validate([
+            'name'      =>  ['required','max:50'],
+            'address'   =>  ['required'],
+            'longitude' =>  ['nullable','integer'],
+            'latitude'  =>  ['nullable','integer'],
+            'body'      =>      ['nullable'],
+            'image' => ['nullable', 'image', 'mimes:png,jpeg,gif'],
+            ]);
+
+            if ($request->has('image') && !empty($request->file('image'))) {
+                if ($venue->media_id)
+                    Storage::delete("public/" . $venue->media->path);
+                $media_id = MediaService::upload($request->file('image'), "venues");
+            }
+
+            $venue->update([
+                'name'  =>  $request->name,
+                'address'   =>  $request->address,
+                'longitude' =>  $request->longitude,
+                'latitude'  =>  $request->latitude,
+                'media_id'  =>  $media_id ?? $venue->media_id,
+            ]);
+
+            return redirect()->route('admin.venues.index')
+                ->with('success', 'Venue Updated Successfully !!');
     }
 
     /**
@@ -78,8 +129,11 @@ class VenueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Venue $venue)
     {
-        //
+        $venue->delete();
+
+        return redirect()->route('admin.venues.index')
+            ->with('success', 'Venue Deleted Successfully !!');
     }
 }

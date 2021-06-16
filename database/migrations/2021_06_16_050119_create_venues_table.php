@@ -18,9 +18,9 @@ class CreateVenuesTable extends Migration
             $table->string('name');
             $table->foreignId('media_id')->nullable();
             $table->string('address');
-            $table->integer('latitude');
-            $table->integer('longitude');
-            $table->longText('body');
+            $table->integer('latitude')->nullable();
+            $table->integer('longitude')->nullable();
+            $table->longText('body')->nullable();
             $table->timestamps();
         });
     }
