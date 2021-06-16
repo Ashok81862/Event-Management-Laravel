@@ -39,7 +39,7 @@ class SiteController extends Controller
 
         $sponsor_count  = Sponsor::count();
 
-        $venues = Venue::with(['media'])->get();
+        $venues = Venue::with(['media'])->limit(6)->get();
 
         $hotels = Hotel::with(['media'])->get();
 
