@@ -35,9 +35,9 @@
     @include('sections.gallery')
     <!-- End Portfolio Section -->
 
-    <!-- ======= Testimonials Section ======= -->
-    @include('sections.venue')
-    <!-- End Testimonials Section -->
+    <!-- ======= Hotel Section ======= -->
+    @include('sections.hotel')
+    <!-- End Hotel Section -->
 
     <!-- ======= Team Section ======= -->
     @include('sections.speakers')
