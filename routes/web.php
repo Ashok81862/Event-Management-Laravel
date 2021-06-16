@@ -22,6 +22,7 @@ Route::get('/home',[\App\Http\Controllers\SiteController::class, 'home'])->middl
 
 Route::middleware([ 'admin',])->prefix('admin')->name('admin.')->group(function(){
     Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index']);
+    Route::get('password', [\App\Http\Controllers\Admin\AdminController::class, 'password']);
 
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
 
@@ -47,5 +48,4 @@ Route::middleware([ 'admin',])->prefix('admin')->name('admin.')->group(function(
     Route::resource('venues', \App\Http\Controllers\Admin\VenueController::class);
 
     Route::resource('hotels', \App\Http\Controllers\Admin\HotelController::class);
-
 });
