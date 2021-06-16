@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Faq;
 use Illuminate\Http\Request;
 
 class FaqController extends Controller
@@ -14,7 +15,9 @@ class FaqController extends Controller
      */
     public function index()
     {
-        //
+        $faqs = Faq::select(['id','question'])->paginate(10);
+
+        return view('admin.faqs.index', compact('faqs'));
     }
 
     /**
@@ -24,7 +27,7 @@ class FaqController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.faqs.create');
     }
 
     /**
@@ -35,7 +38,18 @@ class FaqController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'question'  =>  ['required','string'],
+            'answer'    =>  ['required','string'],
+        ]);
+
+        Faq::create([
+            'question'  =>  $request->question,
+            'answer'    =>  $request->answer
+        ]);
+
+        return redirect()->route('admin.faqs.index')
+            ->with('success', 'FAQ Created Successfully !!');
     }
 
     /**
@@ -44,9 +58,9 @@ class FaqController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Faq $faq)
     {
-        //
+        return view('admin.faqs.show', compact('faq'));
     }
 
     /**
@@ -55,9 +69,9 @@ class FaqController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Faq $faq)
     {
-        //
+        return view('admin.faqs.edit', compact('faq'));
     }
 
     /**
@@ -67,9 +81,20 @@ class FaqController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Faq $faq)
     {
-        //
+        $request->validate([
+            'question'  =>  ['required','string'],
+            'answer'    =>  ['required','string'],
+        ]);
+
+        $faq->update([
+            'question'  =>  $request->question,
+            'answer'    =>  $request->answer
+        ]);
+
+        return redirect()->route('admin.faqs.index')
+            ->with('success', 'FAQ Created Successfully !!');
     }
 
     /**
@@ -78,8 +103,11 @@ class FaqController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Faq $faq)
     {
-        //
+        $faq->delete();
+
+        return redirect()->route('admin.faqs.index')
+            ->with('success', 'FAQ Deleted Successfully !!');
     }
 }
