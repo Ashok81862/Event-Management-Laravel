@@ -33,7 +33,7 @@
                     <tr>
                         <td>{{ $price->id }}</td>
                         <td>{{ $price->name }}</td>
-                        <td>{{ $price->price }}</td>
+                        <td>${{ $price->price }}</td>
                         <td>
                             <!-- Show -->
                             <a href="{{ route('admin.prices.show', $price->id) }}" class="btn btn-secondary btn-sm">

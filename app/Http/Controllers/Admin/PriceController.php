@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Amenity;
 use App\Models\Price;
 use BaconQrCode\Renderer\Color\Cmyk;
 use Illuminate\Http\Request;
@@ -111,4 +112,39 @@ class PriceController extends Controller
         return redirect()->route('admin.prices.index')
             ->with('success','Price Deleted Successfully !!');
     }
+
+    public function amenities(Request $request, Price $price)
+    {
+        $amenities = Amenity::select(['id', 'name'])->get();
+
+        return view('admin.prices.amenities', compact('amenities', 'price'));
+    }
+
+    public function addAmenity(Request $request, Price $price)
+    {
+        $request->validate([
+            'amenity_id' => 'required|exists:amenities,id',
+        ]);
+
+        if (!in_array($request->amenity_id, $price->amenities->pluck('id')->toArray()))
+            $price->amenities()->attach($request->amenity_id);
+
+        return redirect()->route('admin.prices.amenities', $price->id)
+            ->with('success', 'Amenity has been added to price successfully!');
+    }
+
+    public function removeAmenity(Request $request, Price $price)
+    {
+        $request->validate([
+            'amenity_id' => 'required|exists:amenities,id',
+        ]);
+
+        $price->amenities()->detach($request->amenity_id);
+
+        return redirect()->route('admin.prices.amenities', $price->id)
+            ->with('success', 'Amenity has been removed from price successfully!');
+    }
+
+
+
 }

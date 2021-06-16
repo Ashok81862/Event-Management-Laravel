@@ -35,6 +35,11 @@ Route::middleware([ 'admin',])->prefix('admin')->name('admin.')->group(function(
 
     Route::resource('sponsors', \App\Http\Controllers\Admin\SponsorController::class);
 
+    Route::get('prices/{price}/amenities', [\App\Http\Controllers\Admin\PriceController::class, 'amenities'])->name('prices.amenities');
+    Route::put('prices/{price}/amenities', [\App\Http\Controllers\Admin\PriceController::class, 'addAmenity'])->name('prices.amenities.store');
+    Route::delete('prices/{price}/amenities', [\App\Http\Controllers\Admin\PriceController::class, 'removeAmenity'])->name('prices.amenities.remove');
+    Route::post('prices/{price}/messages', [\App\Http\Controllers\Admin\PriceController::class, 'message'])->name('prices.message');
+
     Route::resource('prices', \App\Http\Controllers\Admin\PriceController::class);
 
 });
